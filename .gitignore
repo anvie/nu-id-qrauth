@@ -1,0 +1,6 @@
+.DS_Store
+._*
+*.bak
+target/
+dist/
+node_modules/

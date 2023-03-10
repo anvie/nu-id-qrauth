@@ -1,15 +1,14 @@
-
 const baseUrls:any = {
     "dev": "http://localhost:3000/api",
-    "prod": "https://nu.id/api",
+    "prod": "https://www.nu.id/api",
 }
 
-function wrapUrl(url: string, env: string = "dev") {
+function wrapUrl(url: string, env: string = "prod") {
     return baseUrls[env] + url;
 }
 
 // API request POST method
-export const post = async <T>(url: string, body: any, headers?: any): Promise<T> => {
+export const post = async <T>(url: string, body: any, dev?: boolean, headers?: any): Promise<T> => {
     const authHeader = generateAuthHeader();
     const _headers = {
         "Content-Type": "application/json",
@@ -19,7 +18,7 @@ export const post = async <T>(url: string, body: any, headers?: any): Promise<T>
         headers["Authorization"] = authHeader;
     }
     try {
-        const res = await fetch(wrapUrl(url), {
+        const res = await fetch(wrapUrl(url, dev ? 'dev' : 'prod'), {
             method: "POST",
             headers: _headers,
             body: JSON.stringify(body)

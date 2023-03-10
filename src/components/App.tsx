@@ -22,11 +22,11 @@ const QRCode: React.FC<{ data: string }> = ({ data }) => {
 };
 
 export type Props = {
-  qrAuthCode: string;
   onSuccess: (accessToken: string) => void;
   text: string;
   loadingComponent?: React.ReactNode;
   _L?: (key: string) => string;
+  dev?: boolean;
 };
 
 function defaultLocalizer(key: string) {
@@ -34,33 +34,35 @@ function defaultLocalizer(key: string) {
 }
 
 const NuIdQRAuth: React.FC<Props> = ({
-  qrAuthCode,
   onSuccess,
   text,
   _L = defaultLocalizer,
   loadingComponent,
+  dev = false
 }): React.ReactElement => {
+  const [qrAuthCode, setQrAuthCode] = useState("");
   const qrCodeNonce = randomString(32);
 
   const refreshQrCode = async () => {
     return new Promise<string>((resolve, reject) => {
-      post("/v1/qrAuth", { clientId: "1", nonce: qrCodeNonce })
-        .then((result: any) => {
-          if (result.accessToken) {
-            onSuccess(result.accessToken);
+      post("/v1/qrAuth", { clientId: "1", nonce: qrCodeNonce }, dev)
+        .then((data: any) => {
+          if (data.accessToken) {
+            onSuccess(data.accessToken as string);
             return;
           }
 
-          const { sessionId, expires } = result as {
+          const { sessionId, expires } = data as {
             sessionId: string;
             expires: number;
           };
           const now = Math.floor(Date.now() / 1000);
 
-          if (result.sessionId) {
+          if (sessionId) {
+            setQrAuthCode(sessionId);
+
             // set timeout to refresh qr code
             const timeout = Math.floor(expires - now) * 1000;
-            console.log("🚀 ~ file: index.tsx:48 ~ .then ~ timeout:", timeout);
 
             if (timeout < 1) {
               reject("timeout is negative");

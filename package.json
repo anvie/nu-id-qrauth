@@ -1,6 +1,6 @@
 {
   "name": "@nu-id/qr-auth",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "author": "Robin Syihab <robinsyihab@gmail.com>",
   "main": "./dist/cjs/index.js",

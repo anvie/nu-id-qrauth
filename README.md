@@ -1,4 +1,6 @@
-The nu.id QR Auth is a Node.js React component library that enables seamless login using Nu.id via a QR code. With this library, users can log in to services securely without the need to type in their credentials. 
+## NU.ID QR Auth React Component
+
+The NU.id QR Auth is a Node.js React component library that enables seamless login using NU.id via a QR code. With this library, users can log in to services securely without the need to type in their credentials. 
 
 To use the library, you need to install it first. You can do that by running the following command in your terminal:
 

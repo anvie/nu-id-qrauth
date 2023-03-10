@@ -1,31 +1,20 @@
 {
-  "name": "@nu-id/qr-auth",
-  "version": "0.0.8",
+  "name": "nu-id",
+  "workspaces": [
+    "packages/*",
+    "examples/hello"
+  ],
   "license": "MIT",
+  "private": true,
   "author": "Robin Syihab <robinsyihab@gmail.com>",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
-  "repository": "git+https://github.com/anvie/nu-id-qrauth",
+  "repository": "git+https://github.com/anvie/nu-id",
   "scripts": {
-    "build": "yarn build:esm && yarn build:cjs",
-    "build:esm": "tsc --module esnext",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs"
-  },
-  "peerDependencies": {
-    "next": "^13.2.3",
-    "react": ">=18",
-    "react-dom": "^18.2.0"
+    "clean": "rimraf ./packages/*/dist",
+    "build": "yarn workspace @nu-id/qr-auth build",
+    "dev": "yarn workspace @nu-id/example-hello dev"
   },
   "devDependencies": {
-    "@types/qrcode": "^1.5.0",
-    "@types/react": "^18.0.28",
-    "tslib": "^2.5.0",
-    "typescript": "^4.9.5"
-  },
-  "dependencies": {
-    "crypto": "^1.0.1",
-    "qrcode": "^1.5.1"
+    "rimraf": "^4.4.0"
   },
   "files": [
     "dist",
